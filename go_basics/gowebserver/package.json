@@ -1,0 +1,19 @@
+{
+  "name": "gowebserver",
+  "version": "1.0.0",
+  "description": "a web server for golang series",
+  "keywords": [
+    "webserver",
+    "go"
+  ],
+  "license": "ISC",
+  "author": "sanskar mishra",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10"
+  }
+}
