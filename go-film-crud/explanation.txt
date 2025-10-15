@@ -1,0 +1,70 @@
+- Full Function:
+
+func deleteAllFilms(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	// Reset the slice
+	count := len(films)
+	films = []Film{}
+
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"message":     "All films deleted successfully",
+		"deletedCount": count,
+	})
+}
+
+- Step-by-step Explanation:
+
+1. Function signature
+
+func deleteAllFilms(w http.ResponseWriter, r *http.Request)
+
+- This defines an HTTP handler function for your API endpoint.
+- It takes two parameters:
+  - w http.ResponseWriter → used to send a response back to the client.
+  - r *http.Request → represents the incoming HTTP request from the client (browser, Postman, etc).
+- Every HTTP handler in Go has this signature — it's part of the net/http standard library convention.
+
+2. Setting the response header
+
+w.Header().Set("Content-Type", "application/json")
+
+- This tells the client that the response will be in JSON format.
+- Without this, the browser or API client might not interpret the response correctly.
+- Always good practice in APIs that return JSON.
+
+3.Count how many films exist
+
+count := len(films)
+
+- films is a slice (like a dynamic array) holding all film records.
+- len(films) gives the number of elements currently in the slice.
+- We store this number in a variable count before deleting them, so we can return how many films were removed.
+
+4. Reset (delete) all films
+
+films = []Film{}
+
+- This reassigns the global variable films to an empty slice of type Film.
+- In Go, this effectively means:
+  - All previous data in films is no longer referenced.
+  - The garbage collector will eventually free that memory.
+- So now, films is an empty list → [].
+
+5. Send JSON response
+
+json.NewEncoder(w).Encode(map[string]interface{}{
+	"message":     "All films deleted successfully",
+	"deletedCount": count,
+})
+
+- json.NewEncoder(w) creates a JSON encoder that writes directly to the HTTP response (w).
+- .Encode(...) converts the given data (in this case, a map) into JSON and sends it back to the client.
+- The map[string]interface{} is an easy way to return a structured JSON response.
+
+So this line sends a response like:
+
+{
+  "message": "All films deleted successfully",
+  "deletedCount": 10
+}
