@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Static Website</title>
+    <style>
+        /* Basic page styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Header */
+        h1 {
+            background-color: white;
+            color: #4a47a3;
+            padding: 20px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        /* Hover effect */
+        h1:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Optional footer */
+        footer {
+            position: absolute;
+            bottom: 15px;
+            font-size: 14px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Static Website</h1>
+    <footer>© 2025 My Static Site</footer>
+</body>
+</html>
