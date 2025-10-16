@@ -1,0 +1,78 @@
+EmailVerificationReport
+This struct stores detailed verification results for an email address.
+Each field represents a specific validation step:
+
+
+| Field                | Type     | Description                                                                           |
+| -------------------- | -------- | ------------------------------------------------------------------------------------- |
+|   Email              | `string` | The email address being verified (e.g. `user@example.com`).                           |
+|   ValidFormat        | `bool`   | Checks if the email syntax is valid (e.g. contains `@`, proper domain, etc.).         |
+|   ValidDomain        | `bool`   | Confirms if the domain part (after `@`) is valid in format (like `example.com`).      |
+|   DomainHasMX        | `bool`   | Checks if the domain has   MX (Mail Exchange)** records — required to receive emails. |
+|   DomainSPF          | `string` | Stores the   SPF record   (Sender Policy Framework) text if found.                    |
+|   DomainSPFError     | `string` | If SPF lookup fails, this field stores the error message.                             |
+|   DomainDMARC        | `string` | Stores the   DMARC record   if found.                                                 |
+|   DomainDMARCError   | `string` | Stores any error found while checking the DMARC record.                               |
+|   MailboxExists      | `bool`   | (Optional SMTP check) True if the mailbox was found to exist on the server.           |
+|   Error              | `string` | Any general error message during verification (e.g. DNS failure, invalid domain).     |
+
+Example :
+
+john.doe@example.com
+
+Output :
+
+{
+  "email": "john.doe@example.com",
+  "validFormat": true,
+  "validDomain": true,
+  "domainHasMX": true,
+  "domainSPF": "v=spf1 include:_spf.google.com ~all",
+  "domainSPFError": "",
+  "domainDMARC": "v=DMARC1; p=none; rua=mailto:dmarc-reports@example.com",
+  "domainDMARCError": "",
+  "mailboxExists": true,
+  "error": ""
+}
+
+
+DomainVerificationReport
+This struct stores verification results for a domain name (like example.com), without focusing on a specific mailbox.
+
+| Field             | Type       | Description                                                |
+| ----------------- | ---------- | ---------------------------------------------------------- |
+|   Domain          | `string`   | The domain being checked (e.g. `example.com`).             |
+|   HasMX           | `bool`     | True if the domain has one or more MX records.             |
+|   MXRecords       | `[]string` | List of the actual MX record hosts.                        |
+|   HasSPF          | `bool`     | True if the domain has an SPF record.                      |
+|   SPFRecord       | `string`   | The SPF record content, if found.                          |
+|   SPFError        | `string`   | Error message if SPF lookup fails.                         |
+|   HasDMARC        | `bool`     | True if the domain has a DMARC policy record.              |
+|   DMARCRecord     | `string`   | The DMARC record content, if found.                        |
+|   DMARCError      | `string`   | Error message if DMARC lookup fails.                       |
+|   DNSSecEnabled   | `bool`     | Placeholder for DNSSEC check (security extension for DNS). |
+|   Error           | `string`   | Any general error message during domain verification.      |
+
+
+Example :
+
+example.com
+
+Output :
+
+{
+  "domain": "example.com",
+  "hasMx": true,
+  "mxRecords": [
+    "aspmx.l.google.com.",
+    "alt1.aspmx.l.google.com."
+  ],
+  "hasSpf": true,
+  "spfRecord": "v=spf1 include:_spf.google.com ~all",
+  "spfError": "",
+  "hasDmarc": true,
+  "dmarcRecord": "v=DMARC1; p=none; rua=mailto:dmarc-reports@example.com",
+  "dmarcError": "",
+  "dnsSecEnabled": false,
+  "error": ""
+}
